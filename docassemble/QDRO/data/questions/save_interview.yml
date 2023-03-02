@@ -1,0 +1,45 @@
+objects:
+  - userdata: DAStore
+  - preferences: DAObject
+---
+code: |
+  userId = str(user_info().id)
+  if userdata.defined(userId):
+    preferences = userdata.get(userId)
+---
+question: |
+  What is your name?
+fields:
+  - First Name: preferences.f_name
+---
+question: |
+  What is your favorite fruit?
+fields:
+  - Fruit: preferences.favorite_fruit
+---
+mandatory: True
+code: |
+  preferences.favorite_fruit
+  preferences.f_name
+  if not userdata.defined(userId):
+    userdata.set(userId, preferences)
+---
+mandatory: True
+code: |
+  final_screen
+---
+event: final_screen
+question: |
+  All done ${ userdata.get(userId).f_name }
+subquestion: |
+  Your favorite fruit is
+  ${ userdata.get(userId).favorite_fruit }.
+  > ${ user_info().id }
+action buttons:
+  - label: Restart
+    action: restart_interview
+    color: warning
+---
+event: restart_interview
+code: |
+  command('restart')
