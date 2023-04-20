@@ -1,0 +1,70 @@
+metadata: 
+  title: |
+    Add datacrud
+  short title: |
+    Add datacrud to database
+---
+modules:
+  - .read_data
+---
+code: |
+  user_data11 = display()
+  if len(user_data11) > 0:
+    if "favorite_fruit" in user_data11[0]:
+      user_data1 = user_data11
+    else:
+      user_data1 = [{'favorite_fruit':''}]
+    if "favorite_fruit1" in user_data11[0]:
+      user_data1 = user_data11
+    else:
+      user_data1 = [{'favorite_fruit1':''}]
+    if "favorite_fruit2" in user_data11[0]:
+      user_data1 = user_data11
+    else:
+      user_data1 = [{'favorite_fruit2':''}]
+  else:
+    user_data1 = [{
+    'favorite_fruit':'',
+    'favorite_fruit1':'',
+    'favorite_fruit2':''
+    }]
+  jsond = {
+    'favorite_fruit':favorite_fruit,
+    'favorite_fruit1':favorite_fruit1,
+    'favorite_fruit2':favorite_fruit2
+  }
+  user_data = add(jsond)
+---
+mandatory: True
+code: |
+  favorite_fruit
+  favorite_fruit1
+  favorite_fruit2
+  display_data
+---
+question: |
+  In what county was your divorce?
+fields:
+  - Fruit: favorite_fruit
+    default: |
+      ${ user_data1[0]['favorite_fruit'] }
+---
+question: |
+  What is your favorite fruit1?
+fields:
+  - Fruit: favorite_fruit1
+    default: |
+      ${ user_data1[0]['favorite_fruit1'] }
+---
+question: |
+  What is your favorite fruit2?
+fields:
+  - Fruit: favorite_fruit2
+    default: |
+      ${ user_data1[0]['favorite_fruit2'] }
+---
+event: display_data
+question: |
+  Your favorite fruit is ${ user_data }
+subquestion: |
+  Other favorite fruits:

@@ -1,0 +1,68 @@
+metadata: 
+  title: |
+    Add datacrud
+  short title: |
+    Add datacrud to database
+---
+modules:
+  - .data_from_database
+---
+mandatory: True
+code: |
+  county
+  sponsors
+  plan
+  display_data
+---
+question: |
+  In what county was your divorce?
+fields:
+  - County: county
+    code: countries_list()
+    default: US
+      
+
+---
+event: sponsor_list
+code: |
+  set_save_status('ignore')
+  original = action_argument('wordstart')
+  wordstart = original.lower()
+  results = []
+  for key in sponsor_name:
+    if key == original:
+      json_response([[key]])
+    if key.lower().find(wordstart):
+      results.append([key])
+  json_response(results)
+---
+question: |
+  Select Sponsor?
+fields:
+  - Sponsors : sponsors
+    input type: ajax
+    action: sponsor_list
+    trigger at: 2
+
+---
+code: |
+  sponsor_name = display_code()
+                             
+---
+
+code: |
+  plan_name = display_plan(sponsors)              
+              
+---
+question: |
+  Plans
+fields:
+  - Plans: plan
+    code: |
+      plan_name
+---
+event: display_data
+question: |
+  Your favorite fruit is 
+subquestion: |
+  Other favorite fruits:
