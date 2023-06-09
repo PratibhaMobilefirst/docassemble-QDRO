@@ -43,12 +43,12 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
                 out.setdefault(package, []).append(prefix+name)
     return out
 
-setup(name='docassemble.QDRO',
+setup(name='docassemble.abcincorporated',
       version='0.0.1',
-      description=('A docassemble extension.'),
-      long_description='# docassemble.QDRO\n\nA docassemble extension.\n\n## Author\n\nAdrienne Macdonald, pratibha.mobilefirst@gmail.com\n\n',
+      description=('Package for Adding Favicon'),
+      long_description='# docassemble.abcincorporated\n\nPackage for Adding Favicon\n\n## Author\n\nPratibha1 Prati, pratibha.mobilefirst@gmail.com\n\n',
       long_description_content_type='text/markdown',
-      author='PratibhaMobilefirst',
+      author='Pratibha Bharti',
       author_email='pratibha.mobilefirst@gmail.com',
       license='The MIT License (MIT)',
       url='https://docassemble.org',
@@ -56,6 +56,6 @@ setup(name='docassemble.QDRO',
       namespace_packages=['docassemble'],
       install_requires=[],
       zip_safe=False,
-      package_data=find_package_data(where='docassemble/QDRO/', package='docassemble.QDRO'),
+      package_data=find_package_data(where='docassemble/abcincorporated/', package='docassemble.abcincorporated'),
      )
 

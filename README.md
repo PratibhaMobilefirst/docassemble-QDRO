@@ -1,8 +1,8 @@
-# docassemble.QDRO
+# docassemble.abcincorporated
 
-A docassemble extension.
+Package for Adding Favicon
 
 ## Author
 
-Adrienne Macdonald, pratibha.mobilefirst@gmail.com
+Pratibha1 Prati, pratibha.mobilefirst@gmail.com
 

@@ -1,0 +1,68 @@
+modules:
+  - .data_from_database
+---
+question: |
+  What type of plan will you be dividing today?
+fields: 
+  - Pick One: pick_plan
+    datatype: radio
+    choices:
+      - Deferred Compensation (Cash & Investment Account 401K)
+      - Pension Plan (Plans that guarantee monthly retirement income)
+---
+event: sponsor_list
+code: |
+  set_save_status('ignore')
+  original = action_argument('wordstart')
+  wordstart = original.lower()
+  results = []
+  for key in sponsor_name:
+    if key == original:
+      json_response([[key]])
+    if key.lower().startswith(wordstart):
+      results.append([key])
+  json_response(results)
+---
+question: |
+  Who is the plan sponsor (employer or union)?
+fields:
+  - Sponsor Name: sponsors
+    input type: ajax
+    action: sponsor_list
+    trigger at: 3
+    hide if: add_other_sponsor
+  - Other. (Type your plan sponsor name.): add_other_sponsor
+    datatype: yesno
+  - Others: other_sponsor
+    show if: add_other_sponsor
+under: |
+  Note: Please enter at least three letters, numbers, or spaces to search.
+---
+initial: True
+code: |
+  if add_other_sponsor == 'false':
+    other_sponsor = ''
+  else:
+    sponsors = ''
+---
+code: |
+  sponsor_name = display_code(pick_plan)                             
+---
+
+code: |
+    plan = display_plan(sponsors)     
+---
+question: |
+  What is the retirement plan name? 
+subquestion: |
+  Please reference a retirement statement, if you have one, to ensure that the plan doesn’t reject your order for using the wrong name. Some companies can have dozens of plans.
+fields:
+  - Plan Name: plan_name
+    code: |
+      plan
+    hide if: add_other_plan
+  - Other. (Type your plan name.): add_other_plan
+    datatype: yesno
+  - Others: other_plan
+    show if: add_other_plan
+---
