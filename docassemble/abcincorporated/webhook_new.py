@@ -19,12 +19,6 @@ stripe.api_key = get_config('stripe tsecret key')
 # Format the converted time as a string with timezone
 #conversion_time = converted_time.strftime('%Y-%m-%d %H:%M:%S %Z%z')
 
-def convert_to_eastern(current_time):
-    source_timezone = pytz.timezone('UTC')
-    target_timezone = pytz.timezone('US/Eastern')
-    eastern_time = current_time.astimezone(target_timezone)
-    formatted_time = eastern_time.strftime("%Y-%m-%d %H:%M:%S")
-    return formatted_time
 
 def retrieve_product_price():
     product = stripe.Price.retrieve("price_1MW2ZeBOgpkiH8jqbVSi8t9W")
@@ -49,7 +43,7 @@ def printUrl(initialUrl,interview_id,url_args):
     
 def yml_veriables(interview_id,initialUrl,args):
   
-  current_time = convert_to_eastern(datetime.datetime.now())
+  current_time = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + " America/New_York"
   
   parsed_url = printUrl(initialUrl,interview_id,args)
   
